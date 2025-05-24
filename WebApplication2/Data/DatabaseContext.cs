@@ -59,6 +59,11 @@ public class DatabaseContext : DbContext
             {
             IdPrescription = 3, Date = new DateTime(2002, 3, 11), 
             DueDate = new DateTime(2003, 9, 27), IdPatient = 3, IdDoctor = 2
+            },
+            new Prescription()
+            {
+                IdPrescription = 4, Date = new DateTime(2007, 4, 14), 
+                DueDate = new DateTime(2008, 2, 29), IdPatient = 3, IdDoctor = 2
             }
         });
         
@@ -75,6 +80,10 @@ public class DatabaseContext : DbContext
             new PrescriptionMedicament()
             {
                 IdMedicament = 1, IdPrescription = 3, Dose = 2, Details = "Twice per week"
+            },
+            new PrescriptionMedicament()
+            {
+                IdMedicament = 1, IdPrescription = 4, Details = "Twice per week"
             }
         });
     }

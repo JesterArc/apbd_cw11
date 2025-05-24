@@ -8,9 +8,9 @@ public class Prescription
 {
     public int IdPrescription { get; set; }
     [Column(TypeName = "Date")]
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
     [Column(TypeName = "Date")]
-    public DateTime DueDate { get; set; }
+    public DateOnly DueDate { get; set; }
     [ForeignKey(nameof(Patient))]
     public int IdPatient { get; set; }
     [ForeignKey(nameof(Doctor))]

@@ -47,23 +47,23 @@ public class DatabaseContext : DbContext
         {
             new Prescription()
             {
-                IdPrescription = 1, Date = new DateTime(2000, 8, 10), 
-                DueDate = new DateTime(2001, 1, 1), IdPatient = 1, IdDoctor = 3
+                IdPrescription = 1, Date = new DateOnly(2000, 8, 10), 
+                DueDate = new DateOnly(2001, 1, 1), IdPatient = 1, IdDoctor = 3
             },
             new Prescription()
             {
-                IdPrescription = 2, Date = new DateTime(2001, 5, 12), 
-                DueDate = new DateTime(2001, 5, 31), IdPatient = 2, IdDoctor = 1
+                IdPrescription = 2, Date = new DateOnly(2001, 5, 12), 
+                DueDate = new DateOnly(2001, 5, 31), IdPatient = 2, IdDoctor = 1
             },
             new Prescription()
             {
-            IdPrescription = 3, Date = new DateTime(2002, 3, 11), 
-            DueDate = new DateTime(2003, 9, 27), IdPatient = 3, IdDoctor = 2
+            IdPrescription = 3, Date = new DateOnly(2002, 3, 11), 
+            DueDate = new DateOnly(2003, 9, 27), IdPatient = 3, IdDoctor = 2
             },
             new Prescription()
             {
-                IdPrescription = 4, Date = new DateTime(2007, 4, 14), 
-                DueDate = new DateTime(2008, 2, 29), IdPatient = 3, IdDoctor = 2
+                IdPrescription = 4, Date = new DateOnly(2007, 4, 14), 
+                DueDate = new DateOnly(2008, 2, 29), IdPatient = 3, IdDoctor = 2
             }
         });
         
@@ -84,6 +84,10 @@ public class DatabaseContext : DbContext
             new PrescriptionMedicament()
             {
                 IdMedicament = 1, IdPrescription = 4, Details = "Twice per week"
+            },
+            new PrescriptionMedicament()
+            {
+                IdMedicament = 2, IdPrescription = 4, Dose = 3, Details = "Twice per week"
             }
         });
     }

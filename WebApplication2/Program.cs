@@ -8,8 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// builder.Services.AddScoped<IDbService, DbService>();
-// builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 builder.Services.AddDbContext<DatabaseContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))

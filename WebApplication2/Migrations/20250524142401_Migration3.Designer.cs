@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Data;
 
@@ -11,9 +12,11 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250524142401_Migration3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,8 +135,8 @@ namespace WebApplication2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPatient"));
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -153,21 +156,21 @@ namespace WebApplication2.Migrations
                         new
                         {
                             IdPatient = 1,
-                            BirthDate = new DateOnly(2000, 8, 10),
+                            BirthDate = new DateTime(2000, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Jan",
                             LastName = "Krakowski"
                         },
                         new
                         {
                             IdPatient = 2,
-                            BirthDate = new DateOnly(1998, 5, 24),
+                            BirthDate = new DateTime(1998, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Anna",
                             LastName = "Kowal"
                         },
                         new
                         {
                             IdPatient = 3,
-                            BirthDate = new DateOnly(1986, 12, 1),
+                            BirthDate = new DateTime(1986, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Wiedzimin",
                             LastName = "Tyrzeci"
                         });
@@ -181,10 +184,10 @@ namespace WebApplication2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPrescription"));
 
-                    b.Property<DateOnly>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("Date");
 
-                    b.Property<DateOnly>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("Date");
 
                     b.Property<int>("IdDoctor")
@@ -205,32 +208,32 @@ namespace WebApplication2.Migrations
                         new
                         {
                             IdPrescription = 1,
-                            Date = new DateOnly(2000, 8, 10),
-                            DueDate = new DateOnly(2001, 1, 1),
+                            Date = new DateTime(2000, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDoctor = 3,
                             IdPatient = 1
                         },
                         new
                         {
                             IdPrescription = 2,
-                            Date = new DateOnly(2001, 5, 12),
-                            DueDate = new DateOnly(2001, 5, 31),
+                            Date = new DateTime(2001, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2001, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDoctor = 1,
                             IdPatient = 2
                         },
                         new
                         {
                             IdPrescription = 3,
-                            Date = new DateOnly(2002, 3, 11),
-                            DueDate = new DateOnly(2003, 9, 27),
+                            Date = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2003, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDoctor = 2,
                             IdPatient = 3
                         },
                         new
                         {
                             IdPrescription = 4,
-                            Date = new DateOnly(2007, 4, 14),
-                            DueDate = new DateOnly(2008, 2, 29),
+                            Date = new DateTime(2007, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2008, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDoctor = 2,
                             IdPatient = 3
                         });
@@ -285,13 +288,6 @@ namespace WebApplication2.Migrations
                             IdMedicament = 1,
                             IdPrescription = 4,
                             Details = "Twice per week"
-                        },
-                        new
-                        {
-                            IdMedicament = 2,
-                            IdPrescription = 4,
-                            Details = "Twice per week",
-                            Dose = 3
                         });
                 });
 

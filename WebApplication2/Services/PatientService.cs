@@ -16,14 +16,9 @@ public class PatientService : IPatientService
         return (await _context.Patients.FirstOrDefaultAsync(p => p.IdPatient == id)) != null;
     }
 
-    public Task<PatientDto> GetPatientInformation(int id)
+    public async Task<PatientDto> GetPatientInformation(int id)
     {
-        // Joining two tables together for easier access
-        var prescriptionMedication = _context.Medicaments
-            .Join(_context.PrescriptionMedicaments, m => m.IdMedicament, pm => pm.IdMedicament,
-                (m, pm) => new { m, pm });
-        
-        List<PrescriptionDto> prescriptionDtos = _context.Prescriptions
+        List<PrescriptionDto> prescriptionDtos = await _context.Prescriptions
             .Join(_context.Doctors, pr => pr.IdDoctor, d => d.IdDoctor, (pr, d) => new { pr, d })
             .Where(prd => prd.pr.IdPatient == id)
             .Select(prd => new PrescriptionDto()
@@ -34,13 +29,16 @@ public class PatientService : IPatientService
                 Medicaments = new List<PrescriptionMedicamentDto>(),
                 Doctor = new DoctorDto() {
                         IdDoctor = prd.d.IdDoctor,
+                        FirstName = prd.d.FirstName,
                         LastName = prd.d.LastName
                     }
-            }).ToListAsync().Result;
+            }).ToListAsync();
 
         foreach (var prescription in prescriptionDtos)
         {
-            var medicaments = prescriptionMedication
+            var medicaments = await _context.Medicaments
+                .Join(_context.PrescriptionMedicaments, m => m.IdMedicament, pm => pm.IdMedicament,
+                    (m, pm) => new { m, pm })
                 .Where(pm => pm.pm.IdPrescription == prescription.IdPrescription)
                 .Select(pm => new PrescriptionMedicamentDto()
                 {
@@ -48,13 +46,12 @@ public class PatientService : IPatientService
                     Name = pm.m.Name,
                     Dose = pm.pm.Dose,
                     Details = pm.pm.Details,
-                }).ToListAsync().Result;
-            foreach (var medicament in medicaments)
-            {
-                prescription.Medicaments.Add(medicament);
-            }
+                }).ToListAsync();
+            medicaments.AddRange(prescription.Medicaments);
+            prescription.Medicaments = medicaments;
         }
-        var patient = _context.Patients.Select(p =>
+        prescriptionDtos = prescriptionDtos.OrderBy(p => p.DueDate).ToList();
+        return await _context.Patients.Select(p =>
             new PatientDto()
             {
                 IdPatient = p.IdPatient,
@@ -63,6 +60,5 @@ public class PatientService : IPatientService
                 BirthDate = p.BirthDate,
                 Prescriptions = prescriptionDtos
             }).FirstAsync(p => p.IdPatient == id);
-        return patient;
     }
 }

@@ -64,6 +64,11 @@ public class DatabaseContext : DbContext
             {
                 IdPrescription = 4, Date = new DateOnly(2007, 4, 14), 
                 DueDate = new DateOnly(2008, 2, 29), IdPatient = 3, IdDoctor = 2
+            },
+            new Prescription()
+            {
+                IdPrescription = 5, Date = new DateOnly(2006, 1, 13), 
+                DueDate = new DateOnly(2006, 10, 9), IdPatient = 3, IdDoctor = 1
             }
         });
         
@@ -88,6 +93,10 @@ public class DatabaseContext : DbContext
             new PrescriptionMedicament()
             {
                 IdMedicament = 2, IdPrescription = 4, Dose = 3, Details = "Twice per week"
+            },
+            new PrescriptionMedicament()
+            {
+                IdMedicament = 2, IdPrescription = 5, Dose = 2, Details = "Twice per week"
             }
         });
     }

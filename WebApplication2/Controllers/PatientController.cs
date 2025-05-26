@@ -23,7 +23,7 @@ public class PatientController : ControllerBase
         return Ok(info);
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> AddNewPrescriptionAsync([FromBody] CreatePrescriptionDto createPrescription)
     {
         // Does Doctor Exist
